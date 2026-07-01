@@ -108,7 +108,7 @@ export default function CollectionPage() {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-grid-gutter mb-20">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-grid-gutter mb-20">
         {displayedProducts.length === 0 ? (
           <div className="col-span-full text-center py-20 font-body-lg text-secondary">
             Aucun article dans vos favoris pour le moment.

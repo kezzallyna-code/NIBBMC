@@ -12,6 +12,7 @@ export default function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,10 +45,12 @@ export default function Header() {
               alt="Logo"
               width={40}
               height={40}
-              className="object-contain mix-blend-multiply"
+              className="object-contain mix-blend-multiply w-[30px] h-[30px] md:w-[40px] md:h-[40px]"
               priority
             />
-            <span className="font-headline-md text-headline-md tracking-tighter uppercase text-primary">{storeSettings.boutiqueName}</span>
+            <span className="font-headline-sm md:font-headline-md text-[14px] md:text-headline-md tracking-tighter uppercase text-primary whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-none">
+              {storeSettings.boutiqueName}
+            </span>
           </Link>
         </div>
         <div className="hidden md:flex flex-1 justify-center items-center space-x-8">
@@ -71,7 +74,7 @@ export default function Header() {
             <input 
               type="text" 
               placeholder="Rechercher..." 
-              className="hidden md:block border-b border-primary bg-transparent px-2 py-1 text-sm text-primary focus:outline-none animate-fade-in-up"
+              className="absolute top-[80px] left-0 w-full px-container-padding py-4 bg-white border-b border-primary md:relative md:top-auto md:w-auto md:px-2 md:py-1 md:bg-transparent text-sm text-primary focus:outline-none animate-fade-in-up"
               autoFocus
             />
           )}
@@ -79,8 +82,52 @@ export default function Header() {
             {isSearchOpen ? 'close' : 'search'}
           </button>
           <Link href="/collection?view=favorites" className="material-symbols-outlined text-primary hover:opacity-70 transition-opacity">favorite</Link>
+          <button 
+            className="md:hidden material-symbols-outlined text-primary hover:opacity-70 transition-opacity ml-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? 'close' : 'menu'}
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-outline-variant/30 flex flex-col px-container-padding py-6 space-y-6 shadow-md z-40 animate-fade-in-up">
+          <Link 
+            className={`font-label-caps text-label-caps transition-colors duration-300 ${pathname === '/' ? 'text-primary' : 'text-on-surface-variant hover:text-primary'}`} 
+            href="/"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Accueil
+          </Link>
+          <Link 
+            className={`font-label-caps text-label-caps transition-colors duration-300 ${pathname === '/collection' ? 'text-primary' : 'text-on-surface-variant hover:text-primary'}`} 
+            href="/collection"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Collections
+          </Link>
+          <Link 
+            className={`font-label-caps text-label-caps transition-colors duration-300 ${pathname === '/about' ? 'text-primary' : 'text-on-surface-variant hover:text-primary'}`} 
+            href="/about"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            À propos
+          </Link>
+          <div className="pt-4 border-t border-outline-variant/30 flex space-x-6">
+            <Link href={storeSettings.instagramUrl} target="_blank" className="text-primary hover:opacity-70 transition-opacity">
+              <InstagramIcon size={20} />
+            </Link>
+            <Link href={storeSettings.facebookUrl} target="_blank" className="text-primary hover:opacity-70 transition-opacity">
+              <FacebookIcon size={20} />
+            </Link>
+            <Link href={`https://wa.me/${storeSettings.whatsappNumber}`} target="_blank" className="text-primary hover:opacity-70 transition-opacity">
+              <MessageCircle size={20} strokeWidth={1.5} />
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
