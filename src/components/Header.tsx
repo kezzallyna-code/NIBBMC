@@ -1,0 +1,86 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { storeSettings } from "@/lib/storeSettings";
+import { MessageCircle } from "lucide-react";
+import { InstagramIcon, FacebookIcon } from "@/components/icons/SocialIcons";
+
+export default function Header() {
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    
+    // Initial check
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <header 
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out shadow-[0px_20px_40px_rgba(17,17,17,0.04)] bg-white
+        ${scrolled 
+          ? 'border-b border-[#C8A96A]/30' 
+          : 'border-b border-outline-variant/30'
+        }`}
+      id="main-header"
+    >
+      <nav className="flex justify-between items-center h-20 px-container-padding max-w-[1440px] mx-auto relative">
+        <div className="flex-1 flex items-center">
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/ChatGPT%20Image%2030%20juin%202026,%2021_31_36.png"
+              alt="Logo"
+              width={40}
+              height={40}
+              className="object-contain mix-blend-multiply"
+              priority
+            />
+            <span className="font-headline-md text-headline-md tracking-tighter uppercase text-primary">{storeSettings.boutiqueName}</span>
+          </Link>
+        </div>
+        <div className="hidden md:flex flex-1 justify-center items-center space-x-8">
+          <Link className={`font-label-caps text-label-caps transition-colors duration-300 ${pathname === '/' ? 'text-primary border-b border-primary pb-1' : 'text-on-surface-variant hover:text-primary'}`} href="/">Accueil</Link>
+          <Link className={`font-label-caps text-label-caps transition-colors duration-300 ${pathname === '/collection' ? 'text-primary border-b border-primary pb-1' : 'text-on-surface-variant hover:text-primary'}`} href="/collection">Collections</Link>
+          <Link className={`font-label-caps text-label-caps transition-colors duration-300 ${pathname === '/about' ? 'text-primary border-b border-primary pb-1' : 'text-on-surface-variant hover:text-primary'}`} href="/about">À propos</Link>
+        </div>
+        <div className="flex-1 flex justify-end items-center space-x-5">
+          <div className="hidden lg:flex items-center space-x-4 mr-2">
+            <Link href={storeSettings.instagramUrl} target="_blank" className="text-primary hover:opacity-70 transition-opacity">
+              <InstagramIcon size={18} />
+            </Link>
+            <Link href={storeSettings.facebookUrl} target="_blank" className="text-primary hover:opacity-70 transition-opacity">
+              <FacebookIcon size={18} />
+            </Link>
+            <Link href={`https://wa.me/${storeSettings.whatsappNumber}`} target="_blank" className="text-primary hover:opacity-70 transition-opacity">
+              <MessageCircle size={18} strokeWidth={1.5} />
+            </Link>
+          </div>
+          {isSearchOpen && (
+            <input 
+              type="text" 
+              placeholder="Rechercher..." 
+              className="hidden md:block border-b border-primary bg-transparent px-2 py-1 text-sm text-primary focus:outline-none animate-fade-in-up"
+              autoFocus
+            />
+          )}
+          <button onClick={() => setIsSearchOpen(!isSearchOpen)} className="material-symbols-outlined text-primary hover:opacity-70 transition-opacity">
+            {isSearchOpen ? 'close' : 'search'}
+          </button>
+          <Link href="/collection?view=favorites" className="material-symbols-outlined text-primary hover:opacity-70 transition-opacity">favorite</Link>
+        </div>
+      </nav>
+    </header>
+  );
+}
