@@ -125,8 +125,7 @@ export default function CheckoutPage() {
             type="button" 
             className="w-full md:w-auto px-16 py-5 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-[#C8A96A] transition-colors shadow-sm"
             onClick={() => {
-              window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-              // Simple interaction to show the user it works by scrolling to the Thank You section
+              document.getElementById('thank-you-section')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }}
           >
             Confirmer la commande
@@ -156,7 +155,7 @@ export default function CheckoutPage() {
         </div>
 
         {/* Thank You Section */}
-        <div className="flex flex-col items-center text-center mt-20">
+        <div id="thank-you-section" className="flex flex-col items-center text-center mt-20">
           <div className="w-16 h-16 rounded-full border border-secondary flex items-center justify-center mb-8">
              <span className="material-symbols-outlined text-secondary text-[32px]">check</span>
           </div>
