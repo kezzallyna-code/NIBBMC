@@ -1,4 +1,7 @@
+"use client";
+
 import { Plus, Search, Filter, MoreVertical, Edit, Trash2 } from "lucide-react";
+import Link from "next/link";
 
 export default function ProductsPage() {
   const products = [
@@ -16,10 +19,13 @@ export default function ProductsPage() {
           <h1 className="font-headline-md text-headline-md">Catalogue de produits</h1>
           <p className="text-secondary font-body-sm mt-1">Gérez la collection, le stock et les prix de votre boutique</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm">
+        <Link 
+          href="/admin/products/new"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm"
+        >
           <Plus size={18} />
           Ajouter un produit
-        </button>
+        </Link>
       </div>
 
       <div className="bg-white p-4 rounded-t-xl border border-outline-variant border-b-0 flex flex-col md:flex-row gap-4 justify-between items-center">

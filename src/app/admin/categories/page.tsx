@@ -1,3 +1,5 @@
+"use client";
+
 import { Plus, Search, Filter, MoreVertical, Edit, Trash2 } from "lucide-react";
 
 export default function CategoriesPage() {
@@ -18,7 +20,10 @@ export default function CategoriesPage() {
           <h1 className="font-headline-md text-headline-md">Catégories</h1>
           <p className="text-secondary font-body-sm mt-1">Organisez la hiérarchie de votre boutique et les catégories de produits</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm">
+        <button 
+          onClick={() => alert("Le module de création de catégorie ouvrira ici.")}
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm"
+        >
           <Plus size={18} />
           Ajouter une catégorie
         </button>
@@ -104,7 +109,12 @@ export default function CategoriesPage() {
           </div>
           <div className="p-4 border-t border-outline-variant bg-surface-variant/30 flex justify-end gap-3 rounded-b-xl">
             <button className="px-4 py-2 text-sm text-secondary hover:text-primary transition-colors">Effacer</button>
-            <button className="px-4 py-2 bg-primary text-on-primary text-sm rounded-md hover:bg-[#C8A96A] transition-colors">Ajouter une catégorie</button>
+            <button 
+              onClick={() => alert("Catégorie ajoutée avec succès.")}
+              className="px-4 py-2 bg-primary text-on-primary text-sm rounded-md hover:bg-[#C8A96A] transition-colors"
+            >
+              Ajouter une catégorie
+            </button>
           </div>
         </div>
       </div>

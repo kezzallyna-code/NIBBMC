@@ -76,6 +76,7 @@ export default function SettingsPage() {
                     className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>

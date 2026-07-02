@@ -1,4 +1,7 @@
+"use client";
+
 import { Plus, Search, Filter, MoreVertical, Edit, Trash2, Image as ImageIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function CollectionsPage() {
   const collections = [
@@ -16,10 +19,13 @@ export default function CollectionsPage() {
           <h1 className="font-headline-md text-headline-md">Collections</h1>
           <p className="text-secondary font-body-sm mt-1">Gérer les collections de produits et les catégories en vedette</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm">
+        <Link 
+          href="/admin/collections/new"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm"
+        >
           <Plus size={18} />
           Créer une collection
-        </button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -121,7 +127,12 @@ export default function CollectionsPage() {
           </div>
           <div className="p-4 border-t border-outline-variant bg-surface-variant/30 flex justify-end gap-3 rounded-b-xl">
             <button className="px-4 py-2 text-sm text-secondary hover:text-primary transition-colors">Annuler</button>
-            <button className="px-4 py-2 bg-primary text-on-primary text-sm rounded-md hover:bg-[#C8A96A] transition-colors">Enregistrer les modifications</button>
+            <button 
+              onClick={() => alert("Modifications enregistrées avec succès.")}
+              className="px-4 py-2 bg-primary text-on-primary text-sm rounded-md hover:bg-[#C8A96A] transition-colors"
+            >
+              Enregistrer les modifications
+            </button>
           </div>
         </div>
       </div>

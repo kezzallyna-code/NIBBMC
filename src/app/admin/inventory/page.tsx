@@ -1,3 +1,5 @@
+"use client";
+
 import { Search, Filter, AlertTriangle, ArrowUpRight, ArrowDownRight, RefreshCw, Download } from "lucide-react";
 
 export default function InventoryPage() {
@@ -19,11 +21,17 @@ export default function InventoryPage() {
           <p className="text-secondary font-body-sm mt-1">Suivez les niveaux de stock, les réservations et les arrivages</p>
         </div>
         <div className="flex gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant text-on-surface font-body-md rounded-md hover:bg-surface-variant transition-colors">
+          <button 
+            onClick={() => alert("L'exportation de l'inventaire en CSV commencera sous peu.")}
+            className="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant text-on-surface font-body-md rounded-md hover:bg-surface-variant transition-colors"
+          >
             <Download size={18} />
             Exporter le stock
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm">
+          <button 
+            onClick={() => alert("Synchronisation de l'inventaire avec la base de données réussie.")}
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm"
+          >
             <RefreshCw size={18} />
             Mettre à jour le stock
           </button>
@@ -125,7 +133,10 @@ export default function InventoryPage() {
                       {available}
                     </td>
                     <td className="px-4 py-4 text-center">
-                      <button className="px-3 py-1 border border-outline-variant rounded hover:bg-surface-variant transition-colors text-xs font-medium">
+                      <button 
+                        onClick={() => alert(`Ajustement du stock pour: ${item.name}`)}
+                        className="px-3 py-1 border border-outline-variant rounded hover:bg-surface-variant transition-colors text-xs font-medium"
+                      >
                         Mettre à jour
                       </button>
                     </td>

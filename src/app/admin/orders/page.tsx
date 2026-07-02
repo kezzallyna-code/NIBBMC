@@ -1,4 +1,7 @@
+"use client";
+
 import { Plus, Search, Filter, Download, MoreVertical } from "lucide-react";
+import Link from "next/link";
 
 export default function OrdersPage() {
   const orders = [
@@ -30,14 +33,20 @@ export default function OrdersPage() {
           <p className="text-secondary font-body-sm mt-1">Gérer et suivre toutes les commandes clients</p>
         </div>
         <div className="flex gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant text-on-surface font-body-md rounded-md hover:bg-surface-variant transition-colors">
+          <button 
+            onClick={() => alert("L'exportation CSV commencera sous peu.")}
+            className="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant text-on-surface font-body-md rounded-md hover:bg-surface-variant transition-colors"
+          >
             <Download size={18} />
             Exporter CSV
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm">
+          <Link 
+            href="/admin/orders/new"
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm"
+          >
             <Plus size={18} />
             Créer une commande
-          </button>
+          </Link>
         </div>
       </div>
 
