@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Save, Image as ImageIcon } from "lucide-react";
+import ImageUploadClient from "../../components/ImageUploadClient";
 
 export default function NewCollectionPage() {
   return (
@@ -36,13 +37,11 @@ export default function NewCollectionPage() {
           
           <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-6 space-y-4">
             <h2 className="font-headline-md text-body-lg mb-4">Bannière de la collection</h2>
-            <div className="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-variant/30 transition-colors">
-              <div className="w-16 h-16 bg-surface-variant rounded-full flex items-center justify-center text-secondary mb-4">
-                <ImageIcon size={24} />
-              </div>
-              <p className="font-bold text-primary mb-1">Cliquez pour uploader la bannière</p>
-              <p className="text-xs text-secondary">Taille recommandée: 1920x1080 (PNG, JPG)</p>
-            </div>
+            <ImageUploadClient 
+              label="Cliquez pour uploader la bannière" 
+              recommendedSize="Taille recommandée: 1920x1080 (PNG, JPG)" 
+              multiple={false} 
+            />
           </div>
         </div>
 

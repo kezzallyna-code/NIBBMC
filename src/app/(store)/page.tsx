@@ -26,10 +26,10 @@ export default function Home() {
     </div>
     <div className="relative z-10 text-center text-on-primary px-container-padding max-w-[1000px]">
       <span className="font-label-caps text-label-caps tracking-[0.3em] uppercase block mb-6 animate-fade-in-up">L'Essence de la Sophistication</span>
-      <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-8 animate-fade-in-up delay-200">Luxury Couture House</h1>
+      <h1 className="font-display-lg text-display-lg-mobile md:text-display-lg mb-8 animate-fade-in-up delay-200">Maison de Couture</h1>
       <p className="font-body-lg text-body-lg mb-10 max-w-2xl mx-auto animate-fade-in-up delay-400">Où l'élégance rencontre la mode intemporelle. Découvrez notre sélection raffinée de pièces sur mesure conçues pour le connaisseur moderne.</p>
       <div className="animate-fade-in-up delay-600">
-        <Link className="inline-block px-12 py-5 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-[#C8A96A] hover:-translate-y-1 transition-all duration-500" href="/collection">Explorer la collection</Link>
+        <Link className="inline-block px-12 py-5 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-[#C8A96A] hover:-translate-y-1 transition-all duration-500" href="/collection">Découvrir</Link>
       </div>
     </div>
   </section>

@@ -95,7 +95,7 @@ export default function MessagesPage() {
             </div>
             
             <div className="prose prose-sm max-w-none text-on-surface font-body-md leading-relaxed">
-              <p>Bonjour l'équipe Luxury Couture House,</p>
+              <p>Bonjour l'équipe Maison de Couture,</p>
               <p>J'espère que ce courriel vous trouvera bien.</p>
               <p>Je suis très intéressée par la Midnight Velvet Abaya de votre dernière collection. Cependant, je suis assez grande (1,80m) et je crains que la "Taille Unique" standard ne soit trop courte pour moi.</p>
               <p>Proposez-vous des tailles personnalisées ou des longueurs plus importantes pour vos abayas ? Si oui, quel est le processus et le coût supplémentaire ?</p>

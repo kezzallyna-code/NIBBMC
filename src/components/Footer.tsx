@@ -67,10 +67,6 @@ export default function Footer() {
               <Mail size={18} className="shrink-0" />
               <a href={`mailto:${storeSettings.emailAddress}`} className="hover:text-on-tertiary transition-colors">{storeSettings.emailAddress}</a>
             </li>
-            <li className="flex items-center gap-3">
-              <Globe size={18} className="shrink-0" />
-              <a href={storeSettings.websiteUrl} target="_blank" className="hover:text-on-tertiary transition-colors">{storeSettings.websiteUrl.replace(/^https?:\/\//, '')}</a>
-            </li>
           </ul>
 
           <div className="pt-4 flex space-x-5">

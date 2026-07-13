@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Save, Image as ImageIcon } from "lucide-react";
+import ImageUploadClient from "../../components/ImageUploadClient";
 
 export default function NewProductPage() {
   return (
@@ -36,13 +37,11 @@ export default function NewProductPage() {
 
           <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-6 space-y-4">
             <h2 className="font-headline-md text-body-lg mb-4">Photos du produit</h2>
-            <div className="border-2 border-dashed border-outline-variant rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-variant/30 transition-colors">
-              <div className="w-16 h-16 bg-surface-variant rounded-full flex items-center justify-center text-secondary mb-4">
-                <ImageIcon size={24} />
-              </div>
-              <p className="font-bold text-primary mb-1">Cliquez pour uploader les photos</p>
-              <p className="text-xs text-secondary">Taille recommandée: 1080x1440 (PNG, JPG). Jusqu'à 5 photos.</p>
-            </div>
+            <ImageUploadClient 
+              label="Cliquez pour uploader les photos" 
+              recommendedSize="Taille recommandée: 1080x1440 (PNG, JPG). Jusqu'à 5 photos." 
+              multiple={true} 
+            />
           </div>
 
           <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-6 space-y-4">
@@ -55,6 +54,14 @@ export default function NewProductPage() {
               <div>
                 <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">SKU</label>
                 <input type="text" placeholder="Ex: CSB-G-01" className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Taille(s)</label>
+                <input type="text" placeholder="Ex: S, M, L, XL" className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Quantité en stock</label>
+                <input type="number" placeholder="Ex: 10" className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors" />
               </div>
             </div>
           </div>

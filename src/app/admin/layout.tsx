@@ -57,7 +57,7 @@ export default function AdminLayout({
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-outline-variant flex flex-col">
         <div className="p-6 border-b border-outline-variant flex items-center justify-center">
-          <Link href="/" className="font-display-lg text-2xl tracking-widest uppercase text-center leading-tight">Luxury Couture<br/>House</Link>
+          <Link href="/" className="font-display-lg text-2xl tracking-widest uppercase text-center leading-tight">Maison de<br/>Couture</Link>
         </div>
         
         <nav className="flex-1 overflow-y-auto py-4 custom-scrollbar">

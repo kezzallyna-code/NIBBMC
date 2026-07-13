@@ -90,7 +90,7 @@ export default function CollectionPage() {
           Maison de Couture
         </span>
         <h1 className="font-headline-xl text-headline-xl text-primary mb-6">
-          {isFavoritesView ? "Mes Favoris" : "Collection de Couture de Luxe"}
+          {isFavoritesView ? "Mes Favoris" : "Collection Maison de Couture"}
         </h1>
         
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">

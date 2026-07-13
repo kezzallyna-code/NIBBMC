@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Luxury Couture House",
-  description: "Luxury Couture House",
+  title: "Maison de Couture",
+  description: "Maison de Couture",
 };
 
 export default function RootLayout({

@@ -3,7 +3,7 @@
 // and loaded from a database (e.g., Supabase).
 
 export const storeSettings = {
-  boutiqueName: "Luxury Couture House",
+  boutiqueName: "Maison de Couture",
   founderName: "Nibel Rezgui",
   address: "15 Rue Didouche Mourad, Alger Centre, 16000, Algérie",
   phoneNumber: "+213 555 12 34 56",

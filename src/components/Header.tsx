@@ -40,14 +40,17 @@ export default function Header() {
       <nav className="flex justify-between items-center h-20 px-container-padding max-w-[1440px] mx-auto relative">
         <div className="flex-1 flex items-center">
           <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/ChatGPT%20Image%2030%20juin%202026,%2021_31_36.png"
-              alt="Logo"
-              width={40}
-              height={40}
-              className="object-contain mix-blend-multiply w-[30px] h-[30px] md:w-[40px] md:h-[40px]"
-              priority
-            />
+            <div className="flex flex-col items-center">
+              <Image
+                src="/new-logo-rn.png"
+                alt="Logo"
+                width={40}
+                height={40}
+                className="object-contain w-[30px] h-[30px] md:w-[50px] md:h-[50px]"
+                priority
+              />
+              <span className="text-[6px] md:text-[8px] tracking-[0.2em] uppercase text-primary mt-0.5">Nibel Rezgui</span>
+            </div>
             <span className="font-headline-sm md:font-headline-md text-[14px] md:text-headline-md tracking-tighter uppercase text-primary whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] md:max-w-none">
               {storeSettings.boutiqueName}
             </span>

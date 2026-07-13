@@ -8,9 +8,9 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="px-container-padding max-w-[1440px] mx-auto mb-20 text-center">
         <span className="font-label-caps text-label-caps uppercase tracking-widest text-secondary block mb-4">Notre héritage</span>
-        <h1 className="font-display-lg text-headline-xl mb-8">L'histoire de Luxury Couture House</h1>
+        <h1 className="font-display-lg text-headline-xl mb-8">L'histoire de Maison de Couture</h1>
         <p className="font-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-          Fondée sur les principes de l'élégance intemporelle et d'un savoir-faire inégalé, Luxury Couture House a redéfini le luxe moderne en Algérie et au-delà. Chaque point raconte une histoire de passion, de tradition et d'art.
+          Fondée sur les principes de l'élégance intemporelle et d'un savoir-faire inégalé, Maison de Couture a redéfini le luxe moderne en Algérie et au-delà. Chaque point raconte une histoire de passion, de tradition et d'art.
         </p>
       </section>
 
