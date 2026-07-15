@@ -6,17 +6,16 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const { SUPABASE_URL, SUPABASE_ANON_KEY } = require('@/utils/supabase/config');
 
-  if (!supabaseUrl || !supabaseKey) {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     console.warn('Supabase environment variables missing in middleware. Bypassing auth checks.')
     return supabaseResponse
   }
 
   const supabase = createServerClient(
-    supabaseUrl,
-    supabaseKey,
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {
@@ -41,7 +40,7 @@ export async function updateSession(request: NextRequest) {
   
   let user = null;
   try {
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('dummy')) {
+    if (!SUPABASE_URL.includes('dummy')) {
       const { data } = await supabase.auth.getUser()
       user = data.user;
     }
@@ -53,7 +52,7 @@ export async function updateSession(request: NextRequest) {
     !user &&
     request.nextUrl.pathname.startsWith('/admin') &&
     request.nextUrl.pathname !== '/admin-login' &&
-    !process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('dummy') // Allow admin access with dummy keys for preview
+    !SUPABASE_URL.includes('dummy') // Allow admin access with dummy keys for preview
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
