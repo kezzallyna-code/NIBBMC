@@ -1,16 +1,37 @@
-"use client";
-
 import { Plus, Search, Filter, MoreVertical, Edit, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { createClient } from "@/utils/supabase/server";
 
-export default function ProductsPage() {
-  const products = [
-    { id: "PROD-001", image: "/images/products/caftan-soie.png", name: "Caftan en Soie Brodée", sku: "CSB-G-01", price: "172,000 DA", stock: 12, category: "Caftans", status: "Publié" },
-    { id: "PROD-002", image: "/images/products/lux_trousers.png", name: "Signature Silk Trousers", sku: "SST-W-M", price: "122,000 DA", stock: 45, category: "Prêt-à-porter", status: "Publié" },
-    { id: "PROD-003", image: "/images/products/robe-emeraude.png", name: "Robe de Soirée Émeraude", sku: "RSE-V-01", price: "330,000 DA", stock: 3, category: "Robes de Soirée", status: "Brouillon" },
-    { id: "PROD-004", image: "/images/products/lux_coat.png", name: "Wool Heritage Coat", sku: "WHC-C-L", price: "427,000 DA", stock: 8, category: "Vêtements d'extérieur", status: "Publié" },
-    { id: "PROD-005", image: "/images/products/lux_abaya.png", name: "Midnight Velvet Abaya", sku: "MVA-B-F", price: "285,000 DA", stock: 0, category: "Abayas", status: "Rupture de stock" },
+export default async function ProductsPage() {
+  const supabase = await createClient();
+  
+  // Fetch real products from database
+  const { data: dbProducts, error } = await supabase
+    .from('products')
+    .select(`
+      *,
+      product_images (
+        image_url
+      )
+    `)
+    .order('created_at', { ascending: false });
+
+  // Fallback hardcoded for visual demo if DB is empty or errors
+  const fallbackProducts = [
+    { id: "PROD-001", image: "/images/products/caftan-soie.png", name: "Caftan en Soie Brodée", sku: "CSB-G-01", price: 172000, stock: 12, category: "Caftans", status: "published" },
+    { id: "PROD-002", image: "/images/products/lux_trousers.png", name: "Signature Silk Trousers", sku: "SST-W-M", price: 122000, stock: 45, category: "Prêt-à-porter", status: "published" }
   ];
+
+  const products = (dbProducts && dbProducts.length > 0) ? dbProducts.map(p => ({
+    id: p.id,
+    image: p.cover_image || (p.product_images?.[0]?.image_url) || "/images/placeholder.png",
+    name: p.name,
+    sku: p.sku || "N/A",
+    price: p.price,
+    stock: 0, // Need to join variants to get true stock, using 0 for now
+    category: "Général", // Need to join category for real name
+    status: p.status === 'published' ? 'Publié' : (p.status === 'archived' ? 'Archivé' : 'Brouillon')
+  })) : fallbackProducts;
 
   return (
     <div className="pb-10">
@@ -40,16 +61,9 @@ export default function ProductsPage() {
         <div className="flex gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
           <select className="border border-outline-variant rounded-md px-3 py-2 text-sm bg-white focus:outline-none">
             <option>Toutes les catégories</option>
-            <option>Prêt-à-porter</option>
-            <option>Caftans</option>
-            <option>Abayas</option>
-            <option>Robes de Soirée</option>
           </select>
           <select className="border border-outline-variant rounded-md px-3 py-2 text-sm bg-white focus:outline-none">
             <option>Tous les statuts</option>
-            <option>Publié</option>
-            <option>Brouillon</option>
-            <option>Rupture de stock</option>
           </select>
           <button className="flex items-center gap-2 px-3 py-2 border border-outline-variant rounded-md text-sm hover:bg-surface-variant transition-colors whitespace-nowrap">
             <Filter size={16} />
@@ -87,7 +101,7 @@ export default function ProductsPage() {
                   </td>
                   <td className="px-4 py-4 text-secondary">{prod.sku}</td>
                   <td className="px-4 py-4 text-on-surface">{prod.category}</td>
-                  <td className="px-4 py-4 font-bold">{prod.price}</td>
+                  <td className="px-4 py-4 font-bold">{prod.price} DA</td>
                   <td className="px-4 py-4">
                     <span className={`font-medium ${prod.stock === 0 ? 'text-red-600' : prod.stock < 5 ? 'text-orange-600' : 'text-green-600'}`}>
                       {prod.stock} en stock
@@ -109,26 +123,12 @@ export default function ProductsPage() {
                       <button className="p-1.5 text-red-600 hover:bg-red-50 rounded transition-colors" title="Delete">
                         <Trash2 size={16} />
                       </button>
-                      <button className="p-1.5 text-secondary hover:bg-surface-variant rounded transition-colors" title="More">
-                        <MoreVertical size={16} />
-                      </button>
                     </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
-        <div className="p-4 border-t border-outline-variant flex items-center justify-between text-sm text-secondary">
-          <p>Affichage de 1 à 5 sur 156 produits</p>
-          <div className="flex gap-1">
-            <button className="px-3 py-1 border border-outline-variant rounded hover:bg-surface-variant" disabled>Préc</button>
-            <button className="px-3 py-1 bg-primary text-on-primary rounded">1</button>
-            <button className="px-3 py-1 border border-outline-variant rounded hover:bg-surface-variant">2</button>
-            <button className="px-3 py-1 border border-outline-variant rounded hover:bg-surface-variant">3</button>
-            <span className="px-2 py-1">...</span>
-            <button className="px-3 py-1 border border-outline-variant rounded hover:bg-surface-variant">Suiv</button>
-          </div>
         </div>
       </div>
     </div>

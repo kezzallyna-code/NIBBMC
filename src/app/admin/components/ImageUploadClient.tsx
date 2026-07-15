@@ -8,10 +8,12 @@ interface ImageUploadClientProps {
   label?: string;
   recommendedSize?: string;
   multiple?: boolean;
+  onChange?: (files: File[]) => void;
 }
 
-export default function ImageUploadClient({ label = "Cliquez pour uploader les photos", recommendedSize = "PNG, JPG.", multiple = false }: ImageUploadClientProps) {
+export default function ImageUploadClient({ label = "Cliquez pour uploader les photos", recommendedSize = "PNG, JPG.", multiple = false, onChange }: ImageUploadClientProps) {
   const [previews, setPreviews] = useState<string[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,15 +21,23 @@ export default function ImageUploadClient({ label = "Cliquez pour uploader les p
       const newFiles = Array.from(e.target.files);
       const newPreviews = newFiles.map(file => URL.createObjectURL(file));
       
+      let updatedFiles: File[];
       if (multiple) {
+        updatedFiles = [...selectedFiles, ...newFiles];
         setPreviews(prev => [...prev, ...newPreviews]);
       } else {
+        updatedFiles = newFiles;
         setPreviews(newPreviews);
       }
+      setSelectedFiles(updatedFiles);
+      if (onChange) onChange(updatedFiles);
     }
   };
 
   const removePreview = (index: number) => {
+    const updatedFiles = selectedFiles.filter((_, i) => i !== index);
+    setSelectedFiles(updatedFiles);
+    if (onChange) onChange(updatedFiles);
     setPreviews(prev => prev.filter((_, i) => i !== index));
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
