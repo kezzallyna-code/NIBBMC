@@ -1,13 +1,13 @@
 "use client";
 
-import { storeSettings } from "@/lib/storeSettings";
 import { Phone, MessageCircle, Mail, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useCartStore } from "@/store/useCartStore";
 import { submitCheckout } from "@/app/actions/store";
 import Link from "next/link";
+import { StoreSettings } from "@/lib/storeSettings";
 
-export default function CheckoutPage() {
+export default function CheckoutClient({ storeSettings }: { storeSettings: StoreSettings }) {
   const [selectedDelivery, setSelectedDelivery] = useState<'domicile' | 'yalidine'>('domicile');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState<string | null>(null);

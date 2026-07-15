@@ -48,9 +48,6 @@ export async function submitCheckout(formData: FormData, cartItems: CartItem[], 
       const { data: newProfile, error: profileError } = await supabase
         .from('profiles')
         .insert([{
-          email: email || `${phone}@temp.luxnibal.com`, // email is required for auth in supabase normally, but since we use public insert on profiles, it might not be. Wait, 'profiles' might be tied to auth.users. 
-          // Actually, our profiles table schema just has id (uuid), email, full_name, phone. 
-          // Let's generate a random uuid.
           id: crypto.randomUUID(),
           full_name,
           phone,

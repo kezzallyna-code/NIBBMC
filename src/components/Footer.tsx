@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { storeSettings } from "@/lib/storeSettings";
+import { getStoreSettings } from "@/lib/storeSettings";
 import { MapPin, Phone, MessageCircle, Mail, Globe, Clock } from "lucide-react";
 import { InstagramIcon, FacebookIcon } from "@/components/icons/SocialIcons";
 
-export default function Footer() {
+export default async function Footer() {
+  const storeSettings = await getStoreSettings();
   return (
     <footer className="bg-tertiary text-on-tertiary w-full pt-section-gap-desktop pb-8">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-grid-gutter px-container-padding max-w-[1440px] mx-auto">

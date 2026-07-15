@@ -1,7 +1,8 @@
-import { storeSettings } from "@/lib/storeSettings";
+import { getStoreSettings } from "@/lib/storeSettings";
 import { MapPin, Phone, MessageCircle, Mail, Clock, Globe } from "lucide-react";
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const storeSettings = await getStoreSettings();
   return (
     <div className="pt-32 pb-section-gap-desktop px-container-padding max-w-[1440px] mx-auto min-h-screen">
       <h1 className="font-display-lg text-headline-xl mb-12 text-center">Nous contacter</h1>

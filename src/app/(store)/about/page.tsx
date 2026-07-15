@@ -1,8 +1,9 @@
-import { storeSettings } from "@/lib/storeSettings";
+import { getStoreSettings } from "@/lib/storeSettings";
 import { MapPin, Phone, MessageCircle, Mail, Globe } from "lucide-react";
 import { InstagramIcon, FacebookIcon } from "@/components/icons/SocialIcons";
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const storeSettings = await getStoreSettings();
   return (
     <div className="pt-32 pb-section-gap-desktop">
       {/* Hero Section */}

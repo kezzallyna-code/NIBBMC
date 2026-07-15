@@ -1,31 +1,71 @@
-// This static configuration serves as a temporary placeholder.
-// In the final architecture, these values will be managed from the Admin Dashboard
-// and loaded from a database (e.g., Supabase).
+import { createClient } from "@/utils/supabase/server";
 
-export const storeSettings = {
-  boutiqueName: "Maison de Couture",
-  founderName: "Nibel Rezgui",
-  address: "15 Rue Didouche Mourad, Alger Centre, 16000, Algérie",
-  phoneNumber: "+213 555 12 34 56",
-  whatsappNumber: "+213555123456", // formatted for wa.me links
-  whatsappDisplay: "+213 555 12 34 56",
-  emailAddress: "contact@luxurycouture.dz",
-  websiteUrl: "https://www.luxurycouture.dz",
-  instagramUrl: "https://instagram.com/luxurycouturehouse",
-  facebookUrl: "https://facebook.com/luxurycouturehouse",
-  googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.6455642647035!2d3.0531558!3d36.762828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128fb258752d591b%3A0xf6d8bb9a37651a!2sDidouche%20Mourad%20St%2C%20Algiers!5e0!3m2!1sen!2sdz!4v1700000000000!5m2!1sen!2sdz",
-  businessHours: [
-    "Samedi - Jeudi : 10h00 - 19h00",
-    "Vendredi : Fermé"
-  ]
-};
+export interface StoreSettings {
+  boutiqueName: string;
+  founderName: string;
+  emailAddress: string;
+  phoneNumber: string;
+  whatsappNumber: string;
+  whatsappDisplay: string;
+  address: string;
+  websiteUrl: string;
+  googleMapsUrl: string;
+  instagramUrl: string;
+  facebookUrl: string;
+  businessHours: string[];
+  currency: string;
+  timezone: string;
+  maintenanceMode: boolean;
+}
 
-// Future hook pattern to make replacing with DB easier:
-export function useStoreSettings() {
-  // In the future, this could be:
-  // const [settings, setSettings] = useState(null);
-  // useEffect(() => { supabase.from('settings').select().then(...) }, []);
-  // return settings;
-  
-  return storeSettings;
+export async function getStoreSettings(): Promise<StoreSettings> {
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.from('store_settings').select('*').single();
+    
+    if (data) {
+      return {
+        boutiqueName: data.boutique_name,
+        founderName: data.founder_name,
+        emailAddress: data.email_address,
+        phoneNumber: data.phone_number,
+        whatsappNumber: data.whatsapp_number,
+        whatsappDisplay: `+${data.whatsapp_number}`, // simple formatting
+        address: data.address,
+        websiteUrl: data.website_url,
+        googleMapsUrl: data.google_maps_url,
+        instagramUrl: data.instagram_url,
+        facebookUrl: data.facebook_url,
+        businessHours: data.business_hours || [],
+        currency: data.currency,
+        timezone: data.timezone,
+        maintenanceMode: data.maintenance_mode
+      };
+    }
+  } catch (e) {
+    console.error("Error fetching store settings", e);
+  }
+
+  // Fallback if DB fails
+  return {
+    boutiqueName: "Maison de Couture Luxnibal",
+    founderName: "Kezzallyna",
+    emailAddress: "contact@luxnibal.com",
+    phoneNumber: "+213 555 00 00 00",
+    whatsappNumber: "213555000000",
+    whatsappDisplay: "+213 555 00 00 00",
+    address: "123 Avenue des Champs-Élysées, 75008 Paris",
+    websiteUrl: "https://www.luxnibal.com",
+    googleMapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.142047744348!2d2.2950893!3d48.8737917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fc4f8f3049b%3A0xc48c0897711422bb!2sArc%20de%20Triomphe!5e0!3m2!1sfr!2sfr!4v1715000000000",
+    instagramUrl: "https://instagram.com/luxnibal",
+    facebookUrl: "https://facebook.com/luxnibal",
+    businessHours: [
+      "Lundi - Vendredi : 10h00 - 19h00",
+      "Samedi : 11h00 - 18h00",
+      "Dimanche : Fermé sur rendez-vous"
+    ],
+    currency: "DZD",
+    timezone: "GMT+1",
+    maintenanceMode: false
+  };
 }
