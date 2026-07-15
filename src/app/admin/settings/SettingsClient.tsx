@@ -99,15 +99,123 @@ export default function SettingsClient({ initialSettings }: { initialSettings: a
 
         {/* Settings Content - General Setup */}
         <div className="flex-1 space-y-6">
-          {activeTab !== 'general' && (
-            <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-12 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-surface-variant text-primary mb-4">
-                <Store size={32} />
+          {activeTab === 'seo' && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-6">
+                <h2 className="font-headline-md text-body-lg mb-6">Optimisation pour les moteurs de recherche (SEO)</h2>
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Titre SEO de la boutique</label>
+                    <input name="seo_title" type="text" defaultValue={initialSettings.seo_title} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Description SEO</label>
+                    <textarea name="seo_description" rows={3} defaultValue={initialSettings.seo_description} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Mots clés (séparés par des virgules)</label>
+                    <input name="seo_keywords" type="text" defaultValue={initialSettings.seo_keywords} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                </div>
               </div>
-              <h2 className="font-headline-md text-headline-md mb-2">Section en cours de développement</h2>
-              <p className="text-secondary font-body-md max-w-md mx-auto">
-                Cette section de paramètres sera disponible dans la prochaine mise à jour. Pour le moment, utilisez la section <strong>Configuration générale</strong>.
-              </p>
+              <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-6">
+                <h2 className="font-headline-md text-body-lg mb-6">Nom de domaine personnalisé</h2>
+                <div>
+                  <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Domaine (ex: www.maboutique.com)</label>
+                  <input name="custom_domain" type="text" defaultValue={initialSettings.custom_domain} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'payments' && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-6">
+                <h2 className="font-headline-md text-body-lg mb-6">Taxes</h2>
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Taux de taxe (%)</label>
+                    <input name="tax_rate" type="number" step="0.01" defaultValue={initialSettings.tax_rate} className="w-full md:w-1/3 px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                        <input type="checkbox" name="tax_included" defaultChecked={initialSettings.tax_included} id="toggle-tax" className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant"/>
+                        <label htmlFor="toggle-tax" className="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer"></label>
+                    </div>
+                    <label className="text-sm font-medium">Les taxes sont incluses dans les prix</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'emails' && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-6">
+                <h2 className="font-headline-md text-body-lg mb-6">Modèles d'e-mails envoyés aux clients</h2>
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Confirmation de commande</label>
+                    <textarea name="email_order_confirmation" rows={5} defaultValue={initialSettings.email_order_confirmation} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Mise à jour d'expédition</label>
+                    <textarea name="email_shipping_update" rows={5} defaultValue={initialSettings.email_shipping_update} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'notifications' && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-6">
+                <h2 className="font-headline-md text-body-lg mb-6">Notifications Administrateur</h2>
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">E-mail pour recevoir les notifications</label>
+                    <input name="notification_email" type="email" defaultValue={initialSettings.notification_email} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors" />
+                  </div>
+                  <div className="flex flex-col gap-4 mt-4">
+                    <label className="flex items-center gap-3">
+                      <div className="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                          <input type="checkbox" name="notify_new_order" defaultChecked={initialSettings.notify_new_order} id="notify-order" className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant"/>
+                          <label htmlFor="notify-order" className="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer"></label>
+                      </div>
+                      <span className="text-sm font-medium">M'alerter lors d'une nouvelle commande</span>
+                    </label>
+                    <label className="flex items-center gap-3">
+                      <div className="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                          <input type="checkbox" name="notify_low_stock" defaultChecked={initialSettings.notify_low_stock} id="notify-stock" className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant"/>
+                          <label htmlFor="notify-stock" className="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer"></label>
+                      </div>
+                      <span className="text-sm font-medium">M'alerter quand le stock est faible</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'legal' && (
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-6">
+                <h2 className="font-headline-md text-body-lg mb-6">Légal et Confidentialité</h2>
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Conditions générales de vente (CGV)</label>
+                    <textarea name="terms_of_service" rows={4} defaultValue={initialSettings.terms_of_service} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Politique de confidentialité</label>
+                    <textarea name="privacy_policy" rows={4} defaultValue={initialSettings.privacy_policy} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-secondary uppercase tracking-wider mb-2">Politique de remboursement</label>
+                    <textarea name="refund_policy" rows={4} defaultValue={initialSettings.refund_policy} className="w-full px-4 py-2 border border-outline-variant rounded-md font-body-sm focus:outline-none focus:border-primary transition-colors resize-none"></textarea>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 

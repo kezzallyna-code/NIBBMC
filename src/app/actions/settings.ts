@@ -45,7 +45,23 @@ export async function updateStoreSettingsAction(formData: FormData) {
     business_hours: businessHours,
     currency: formData.get('currency') as string,
     timezone: formData.get('timezone') as string,
-    maintenance_mode: formData.get('maintenance_mode') === 'on'
+    maintenance_mode: formData.get('maintenance_mode') === 'on',
+    
+    // New fields
+    seo_title: formData.get('seo_title') as string,
+    seo_description: formData.get('seo_description') as string,
+    seo_keywords: formData.get('seo_keywords') as string,
+    custom_domain: formData.get('custom_domain') as string,
+    tax_rate: formData.get('tax_rate') ? parseFloat(formData.get('tax_rate') as string) : 0,
+    tax_included: formData.get('tax_included') === 'on',
+    email_order_confirmation: formData.get('email_order_confirmation') as string,
+    email_shipping_update: formData.get('email_shipping_update') as string,
+    notify_new_order: formData.get('notify_new_order') === 'on',
+    notify_low_stock: formData.get('notify_low_stock') === 'on',
+    notification_email: formData.get('notification_email') as string,
+    terms_of_service: formData.get('terms_of_service') as string,
+    privacy_policy: formData.get('privacy_policy') as string,
+    refund_policy: formData.get('refund_policy') as string
   };
 
   const { error } = await supabase
