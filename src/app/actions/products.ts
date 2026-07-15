@@ -12,7 +12,8 @@ export async function createProduct(formData: FormData) {
   const price = formData.get('price_da') as string
   const sku = formData.get('sku') as string
   const stock = formData.get('stock') as string
-  const category = formData.get('category') as string
+  const category_id = formData.get('category_id') as string
+  const collection_id = formData.get('collection_id') as string
   const status = formData.get('status') as string
 
   // Handle files
@@ -29,6 +30,8 @@ export async function createProduct(formData: FormData) {
         price: parseFloat(price) || 0,
         sku,
         status: status === 'Publié' ? 'published' : 'draft',
+        category_id: category_id || null,
+        collection_id: collection_id || null,
       }
     ])
     .select()
