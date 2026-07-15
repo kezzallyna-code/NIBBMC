@@ -1,17 +1,56 @@
-import { Settings as SettingsIcon, Globe, Store, Mail, Bell, CreditCard, Shield, Save } from "lucide-react";
+"use client";
+
+import { Settings as SettingsIcon, Globe, Store, Mail, Bell, CreditCard, Shield, Save, CheckCircle2 } from "lucide-react";
 import { storeSettings } from "@/lib/storeSettings";
+import { useState } from "react";
 
 export default function SettingsPage() {
+  const [isSaving, setIsSaving] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleSave = () => {
+    setIsSaving(true);
+    setShowSuccess(false);
+    
+    // Simulate network request
+    setTimeout(() => {
+      setIsSaving(false);
+      setShowSuccess(true);
+      
+      // Hide success message after 3 seconds
+      setTimeout(() => setShowSuccess(false), 3000);
+    }, 800);
+  };
+
   return (
-    <div className="pb-10">
+    <div className="pb-10 relative">
+      {/* Toast Notification */}
+      {showSuccess && (
+        <div className="fixed top-24 right-8 bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 z-50 animate-fade-in-up">
+          <CheckCircle2 size={24} className="text-green-600" />
+          <div>
+            <h4 className="font-bold text-sm">Paramètres sauvegardés</h4>
+            <p className="text-xs">Les modifications ont été appliquées à la boutique.</p>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h1 className="font-headline-md text-headline-md">Paramètres de la boutique</h1>
           <p className="text-secondary font-body-sm mt-1">Configurer les préférences globales, les notifications et les intégrations</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm">
-          <Save size={18} />
-          Enregistrer les modifications
+        <button 
+          onClick={handleSave}
+          disabled={isSaving}
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-body-md rounded-md hover:bg-[#C8A96A] transition-colors shadow-sm disabled:opacity-50"
+        >
+          {isSaving ? (
+            <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+          ) : (
+            <Save size={18} />
+          )}
+          {isSaving ? "Enregistrement..." : "Enregistrer les modifications"}
         </button>
       </div>
 
