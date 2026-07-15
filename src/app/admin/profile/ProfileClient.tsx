@@ -2,6 +2,7 @@
 
 import { User, Mail, Phone, Lock, Save, Camera, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { updateProfileInfoAction, updatePasswordAction } from "@/app/actions/profile";
 
 export default function ProfileClient({ initialProfile }: { initialProfile: any }) {
@@ -10,6 +11,7 @@ export default function ProfileClient({ initialProfile }: { initialProfile: any 
   const [showSuccess, setShowSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   const fullName = initialProfile?.full_name || "Karim Admin";
   const nameParts = fullName.split(" ");
@@ -40,6 +42,7 @@ export default function ProfileClient({ initialProfile }: { initialProfile: any 
       setError(result.error);
     } else {
       displaySuccess("Vos informations ont été enregistrées avec succès.");
+      router.refresh();
     }
   };
 

@@ -18,12 +18,11 @@ export async function updateProfileInfoAction(formData: FormData) {
 
   const { error } = await supabase
     .from('profiles')
-    .upsert({ 
-      id: user.id,
+    .update({ 
       full_name: fullName,
-      phone: phone,
-      email: user.email
-    });
+      phone: phone
+    })
+    .eq('id', user.id);
 
   if (error) {
     return { error: error.message };
