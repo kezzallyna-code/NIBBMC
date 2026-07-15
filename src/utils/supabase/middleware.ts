@@ -52,12 +52,12 @@ export async function updateSession(request: NextRequest) {
   if (
     !user &&
     request.nextUrl.pathname.startsWith('/admin') &&
-    request.nextUrl.pathname !== '/admin/login' &&
+    request.nextUrl.pathname !== '/admin-login' &&
     !process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('dummy') // Allow admin access with dummy keys for preview
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
-    url.pathname = '/admin/login'
+    url.pathname = '/admin-login'
     return NextResponse.redirect(url)
   }
 
