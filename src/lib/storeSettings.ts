@@ -22,7 +22,7 @@ export async function getStoreSettings(): Promise<StoreSettings> {
   try {
     const supabase = await createClient();
     const { data } = await supabase.from('store_settings').select('*').single();
-    
+
     if (data) {
       return {
         boutiqueName: data.boutique_name,
@@ -49,7 +49,7 @@ export async function getStoreSettings(): Promise<StoreSettings> {
   // Fallback if DB fails
   return {
     boutiqueName: "Maison de Couture Luxnibal",
-    founderName: "Kezzallyna",
+    founderName: "nibel rezgui",
     emailAddress: "contact@luxnibal.com",
     phoneNumber: "+213 555 00 00 00",
     whatsappNumber: "213555000000",
